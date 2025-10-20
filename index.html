@@ -1,158 +1,154 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
-  <title>资信证书信息</title>
-  <style>
-    :root{
-      --page-width: 1180px;
-      --radius: 6px;
-      --line: #e6ecf2;
-      --cell-bg: #f6f9fe;
-      --thead-bg: #f0f4fa;
-      --body-bg: #f3f5f9;
-      --text: #1a1a1a;
-      --muted: #88909a;
-      --ok: #16a055;
-      --font: 15px;
-      --cell-h: 64px;
-      --pad-x: 16px;
-      --pad-y: 14px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{width:100%;height:100%}
-    body{
-      margin:0;background:var(--body-bg);color:var(--text);
-      font:14px/1.45 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",Segoe UI,Roboto,sans-serif;
-      -webkit-font-smoothing:antialiased
-    }
-
-    .container{max-width:var(--page-width);margin:0 auto;padding:0 12px 24px}
-
-    .table-title{
-      width:100%;text-align:center;font-weight:700;font-size:22px;
-      padding:16px 12px 6px;margin:0;color:#222
-    }
-
-    .base-info{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-    .table-box{display:block}
-    .inline-table{display:grid;grid-template-columns:25% 25% 25% 25%}
-    .item{display:contents}
-
-    .key,.value{
-      border-top:1px solid var(--line);
-      border-right:1px solid var(--line);
-      min-height:var(--cell-h);
-      display:flex;align-items:center;
-      padding:var(--pad-y) var(--pad-x);
-      font-size:var(--font);
-    }
-    .key{background:var(--cell-bg);color:#3c4553}
-    .value{background:#fff;color:#1f2329}
-    .value .status-ok{color:var(--ok);font-weight:700}
-
-    .inline-table .key:nth-of-type(-n+4),
-    .inline-table .value:nth-of-type(-n+4){border-top:none}
-    .inline-table .key:nth-of-type(4n),
-    .inline-table .value:nth-of-type(4n){border-right:none}
-
-    .mar-20{margin-top:20px}
-
-    .table{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-    .table-th{display:grid;grid-template-columns:32% 23% 23% 22%;background:var(--thead-bg);color:#2b313a;font-weight:600}
-    .table-th>div,.table-tr>div{padding:var(--pad-y) var(--pad-x);border-right:1px solid var(--line);border-top:1px solid var(--line);font-size:var(--font)}
-    .table-th>div:last-child,.table-tr>div:last-child{border-right:none}
-    .table-tr{display:grid;grid-template-columns:32% 23% 23% 22%;background:#fff}
-
-    /* ✅ 手机端保持4列展示 */
-    @media (max-width:640px){
-      .container{padding:0 8px 16px}
-      .inline-table{
-        grid-template-columns:24% 26% 24% 26%;
-      }
-      .inline-table .key,
-      .inline-table .value{
-        border-right:1px solid var(--line);
-      }
-      .inline-table .key:nth-of-type(4n),
-      .inline-table .value:nth-of-type(4n){
-        border-right:none;
-      }
-      :root{ --font:14px; --cell-h:52px; --pad-x:10px; --pad-y:10px }
-      .table-th,.table-tr{grid-template-columns:40% 22% 22% 16%}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <title>资信证书信息</title>
+    <script src="./jquery/jquery1.10.2.min.js"></script>
+    <script src="./config.js"></script>
+    <script type="text/javascript" src="rem.js"></script>
+    <link rel="stylesheet" href="./base.css">
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="table-title">资信证书信息</div>
-
-    <div class="base-info table-box">
-      <div class="inline-table inline-table1 table-cell-box" id="base-info-table">
-        <div class="item table-box">
-          <div class="key table-cell-box">级别</div>
-          <div class="value table-cell-box">乙级</div>
-          <div class="key table-cell-box">证件类型</div>
-          <div class="value table-cell-box">专业资信</div>
+    <div class="container">
+        <div class="table-title">资信证书信息</div>
+        <div class="base-info table-box">
+            <div class="inline-table inline-table1 table-cell-box" id="base-info-table">
+            </div>
         </div>
-
-        <div class="item table-box">
-          <div class="key table-cell-box">颁发机构</div>
-          <div class="value table-cell-box">贵州省工程咨询协会</div>
-          <div class="key table-cell-box">单位名称</div>
-          <div class="value table-cell-box">中工黔诚设计（集团）有限公司</div>
+        <div class="base-info mar-20">
+            <div class="table">
+                <div class="table-th" id="table-th">
+                </div>
+                <div id="table-body"></div>
+            </div>
         </div>
-
-        <div class="item table-box">
-          <div class="key table-cell-box">统一社会信用代码</div>
-          <div class="value table-cell-box">91520900MAAJR49K1K</div>
-          <div class="key table-cell-box">证件编号</div>
-          <div class="value table-cell-box">乙预292024010116</div>
-        </div>
-
-        <div class="item table-box">
-          <div class="key table-cell-box">证书状态</div>
-          <div class="value table-cell-box"><span class="status-ok">有效</span></div>
-          <div class="key table-cell-box"></div>
-          <div class="value table-cell-box"></div>
-        </div>
-      </div>
     </div>
-
-    <div class="base-info mar-20">
-      <div class="table">
-        <div class="table-th" id="table-th">
-          <div>业务</div>
-          <div>发证日期</div>
-          <div>有效期</div>
-          <div>状态</div>
-        </div>
-
-        <div id="table-body">
-          <div class="table-tr">
-            <div>公路</div>
-            <div>2024-07-08</div>
-            <div>2027-07-07</div>
-            <div>有效</div>
-          </div>
-          <div class="table-tr">
-            <div>电力（含火电、水电、核电、新能源）</div>
-            <div>2024-07-08</div>
-            <div>2027-07-07</div>
-            <div>有效</div>
-          </div>
-          <div class="table-tr">
-            <div>生态建设和环境工程</div>
-            <div>2024-07-08</div>
-            <div>2027-07-07</div>
-            <div>有效</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+    <script>
+        function getInfo() {
+            var params = GetRequest()
+            $.ajax({
+                type : "GET",
+                url : baseUrl + "/api/scanQrCode/getCompanyCredit",
+                dataType : "json",
+                data : {
+                    params: params['params'] || ''
+                },
+                success : function(res) {
+                    if(res.code === 0) {
+                        const status = getStatusName(res.data)
+                        if(status === '失效') {
+                            setInvalidStatus()
+                        } else {
+                            setInfoDom(res.data)
+                        }
+                    } else {
+                        if(res.message === '二维码已失效') {
+                            setInvalidStatus()
+                        } else {
+                            alert(res.message)
+                        }
+                    }
+                },
+                error: function(error) {
+                    console.log(error)
+                }
+            });
+        }
+        function setInvalidStatus() {
+            $('.container').replaceWith('<div class="invalid-box"><img src="./no-data.png" alt="" class="img"><div>本证书已失效</div></div>')
+        }
+        function GetRequest() {
+            var url = window.location.search;
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=decodeURI(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        function setInfoDom(res) {
+            setBaseInfo(res)
+            if(!res.businessStr) {
+                setHistoryTitle()
+                setHistoryList(res)
+            }
+        }
+        function setBaseInfo(res) {
+            let obj = [{key: '级别', value: 'creditLevelStr'}, {key: '证件类型', value: 'creditTypeStr'}, {key: '颁发机构', value: 'associationStr'}, 
+            {key: '单位名称', value: 'companyName'}, {key: '统一社会信用代码', value: 'idCardNo'}, {key: '证件编号', value: 'creidtCertificateCode'}, {key: '证书状态', formatter: getStatus, class: res.businessStr ? '' : 'all-cell'}]
+            if(res.businessStr) {
+                obj.push({key: '发证日期', value: 'creditCertificateStartDate'})
+                obj.push({key: '有效期至', value: 'creditCertificateEndDate'})
+                obj.push({key: '业务', value: 'businessStr'})
+            }
+            $('#base-info-table').append(getInfoDom(res, obj))
+        }
+        function getInfoDom(res, obj) {
+            let domStr = ''
+            for(let i = 0; i < obj.length; i++) {
+                if(i % 2 == 0) {
+                    domStr += '<div class="item table-box">'
+                }
+                domStr += '<div class="key table-cell-box">' + obj[i].key + '</div>'
+                domStr += '<div class="value table-cell-box ' + (obj[i].class || '') + '">' + (obj[i].formatter ? obj[i].formatter(res) : (res[obj[i].value] || '--') )+ '</div>'
+                if(i % 2 != 0) {
+                    domStr += '</div>'
+                }
+            }
+            return domStr
+        }
+        function getStatus(row) {
+            const status = getStatusName(row)
+            return "<span style='color: " + (status == '失效' ? '#FF5050' : '#999999') + ";font-weight: " + (status == '失效' ? 'normal' : 'bold') + "'>" + status + "</span>" 
+        }
+        function getStatusName(row) {
+            if (row.creditCertificateStartDate && new Date() >= new Date(row.creditCertificateStartDate.replace(/-/g, '/') + ' 00:00:00') && row.creditCertificateEndDate && new Date() <= new Date(row.creditCertificateEndDate.replace(/-/g, '/') + ' 23:59:59')) {
+                if(!row.isDelete) {
+                    return '有效'
+                } else {
+                    return +row.deleteReason === 2 ? '整改中' : '失效'
+                }
+            } else {
+                return '失效'
+            }
+        }
+        function setHistoryTitle() {
+            let domStr = '<div>业务</div><div>发证日期</div><div>有效期</div><div>状态</div>'
+            $('#table-th').append(domStr)
+        }
+        function setHistoryList(data) {
+            const list = data.creditMajors || []
+            const status = getStatusName(data)
+            let domStr = ''
+            for(var i = 0; i < list.length; i++) {
+                let item = list[i]
+                domStr += '<div class="table-tr">'
+                domStr += '<div>' + item.creditMajor + '</div>'
+                domStr += '<div>' + item.creditCertificateStartDate + '</div>'
+                domStr += '<div>' + item.creditCertificateEndDate + '</div>'
+                domStr += '<div>' + (status === '有效' ? (+item.status === 1 ? '有效' : '整改中') : status) + '</div>'
+                domStr += '</div>'
+            }
+            $('#table-body').append(domStr)
+        }
+        getInfo()
+    </script>
 </body>
 </html>
