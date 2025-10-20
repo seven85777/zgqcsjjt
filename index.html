@@ -5,23 +5,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1">
   <title>资信证书信息</title>
   <style>
-    /* ====== 可调参数（觉得和你的原稿有1-2px差异就改这里） ====== */
     :root{
-      --page-width: 1180px;      /* 页面内容最大宽度 */
-      --radius: 6px;              /* 圆角 */
-      --line: #e6ecf2;            /* 表格线颜色 */
-      --cell-bg: #f6f9fe;         /* 左侧“键”格子底色 */
-      --thead-bg: #f0f4fa;        /* 业务表表头底色 */
-      --body-bg: #f3f5f9;         /* 页面背景 */
-      --text: #1a1a1a;            /* 正文字色 */
-      --muted: #88909a;           /* 次要文字 */
-      --ok: #16a055;              /* 有效 状态色 */
-      --font: 15px;               /* 主字号 */
-      --cell-h: 64px;             /* 顶部信息格子最小高度 */
-      --pad-x: 16px;              /* 单元格左右内边距 */
-      --pad-y: 14px;              /* 单元格上下内边距 */
+      --page-width: 1180px;
+      --radius: 6px;
+      --line: #e6ecf2;
+      --cell-bg: #f6f9fe;
+      --thead-bg: #f0f4fa;
+      --body-bg: #f3f5f9;
+      --text: #1a1a1a;
+      --muted: #88909a;
+      --ok: #16a055;
+      --font: 15px;
+      --cell-h: 64px;
+      --pad-x: 16px;
+      --pad-y: 14px;
     }
-    /* =========================================================== */
 
     *{box-sizing:border-box}
     html,body{width:100%;height:100%}
@@ -37,14 +35,11 @@
       width:100%;text-align:center;font-weight:700;font-size:22px;
       padding:16px 12px 6px;margin:0;color:#222
     }
-    /* 如果你需要副标题域名，解开注释即可 */
-    /* .sub-domain{ text-align:center;color:var(--muted);font-size:12px;margin:0 0 10px } */
 
-    /* 顶部信息表：四列网格，每两格为“键/值” */
     .base-info{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
     .table-box{display:block}
     .inline-table{display:grid;grid-template-columns:25% 25% 25% 25%}
-    .item{display:contents} /* 让子格子直接参与网格布局 */
+    .item{display:contents}
 
     .key,.value{
       border-top:1px solid var(--line);
@@ -58,39 +53,42 @@
     .value{background:#fff;color:#1f2329}
     .value .status-ok{color:var(--ok);font-weight:700}
 
-    /* 第一行去掉上边框 */
     .inline-table .key:nth-of-type(-n+4),
     .inline-table .value:nth-of-type(-n+4){border-top:none}
-    /* 每行最后一格去掉右边框 */
     .inline-table .key:nth-of-type(4n),
     .inline-table .value:nth-of-type(4n){border-right:none}
 
     .mar-20{margin-top:20px}
 
-    /* 业务表 */
     .table{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
     .table-th{display:grid;grid-template-columns:32% 23% 23% 22%;background:var(--thead-bg);color:#2b313a;font-weight:600}
     .table-th>div,.table-tr>div{padding:var(--pad-y) var(--pad-x);border-right:1px solid var(--line);border-top:1px solid var(--line);font-size:var(--font)}
     .table-th>div:last-child,.table-tr>div:last-child{border-right:none}
     .table-tr{display:grid;grid-template-columns:32% 23% 23% 22%;background:#fff}
 
-    /* 手机端依旧保持整页表格风，只调列宽与间距以便读数 */
+    /* ✅ 手机端保持4列展示 */
     @media (max-width:640px){
-      .container{padding:0 10px 18px}
-      .inline-table{grid-template-columns:50% 50%} /* 两列 */
-      .inline-table .key:nth-of-type(2n),
-      .inline-table .value:nth-of-type(2n){border-right:none}
+      .container{padding:0 8px 16px}
+      .inline-table{
+        grid-template-columns:24% 26% 24% 26%;
+      }
+      .inline-table .key,
+      .inline-table .value{
+        border-right:1px solid var(--line);
+      }
+      .inline-table .key:nth-of-type(4n),
+      .inline-table .value:nth-of-type(4n){
+        border-right:none;
+      }
+      :root{ --font:14px; --cell-h:52px; --pad-x:10px; --pad-y:10px }
       .table-th,.table-tr{grid-template-columns:40% 22% 22% 16%}
-      :root{ --font:15px; --cell-h:56px; --pad-x:12px; --pad-y:12px }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="table-title">资信证书信息</div>
-    <!-- <p class="sub-domain">zhywglxt.cnaec.com.cn</p> -->
 
-    <!-- 顶部基础信息：DOM 与 class 完全沿用你的原结构 -->
     <div class="base-info table-box">
       <div class="inline-table inline-table1 table-cell-box" id="base-info-table">
         <div class="item table-box">
@@ -117,14 +115,12 @@
         <div class="item table-box">
           <div class="key table-cell-box">证书状态</div>
           <div class="value table-cell-box"><span class="status-ok">有效</span></div>
-          <!-- 如果你需要占满四列，这两格保持空即可 -->
           <div class="key table-cell-box"></div>
           <div class="value table-cell-box"></div>
         </div>
       </div>
     </div>
 
-    <!-- 业务列表 -->
     <div class="base-info mar-20">
       <div class="table">
         <div class="table-th" id="table-th">
@@ -160,4 +156,3 @@
   </div>
 </body>
 </html>
-
